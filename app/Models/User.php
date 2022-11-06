@@ -40,5 +40,23 @@ class User extends Authenticatable
      */
     protected $casts = [
         'email_verified_at' => 'datetime',
+        'last_accessed_at' => 'datetime'
     ];
+
+    protected $appends = [
+        'proline_photo_url',
+        'is_online'
+    ];
+
+    // Accessor
+    public function getIsOnlineAttribute() {
+
+        $last_accessed_at = $this->last_accessed_at;
+
+        // 最終アクセスが15分以内の場合
+        return (
+            !is_null($last_accessed_at) &&
+            now()->diffInMinutes($last_accessed_at) <= 15
+        );
+    }
 }
