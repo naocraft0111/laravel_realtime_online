@@ -44,7 +44,6 @@ class User extends Authenticatable
     ];
 
     protected $appends = [
-        'proline_photo_url',
         'is_online'
     ];
 
